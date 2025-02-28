@@ -1,0 +1,76 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title>Lab5 - Exercise 1</title> 
+</head> 
+<body> 
+    <input type="text" id="textInput" onkeydown="inputEntered(event)" placeholder="Type something 
+here..."/> 
+    <label id="textLabel"></label> 
+    <button id="redButton" onclick="redbuttonclicked(event)">Red</button> 
+    <button id="blueButton" onclick="bluebuttonclicked(event)">Blue</button> 
+    <button id="greenButton" onclick="greenbuttonclicked(event)">Green</button> 
+    <button id="orangeButton" onclick="orangebuttonclicked(event)">Orange</button> 
+    <button id="purpleButton" onclick="purplebuttonclicked(event)">Purple</button> 
+</body> 
+
+<script type="text/javascript"> 
+    async function inputEntered(event){
+        if (event.key == "Enter"){
+            const data = await retrieveData();
+            var element = document.getElementById("textLabel");
+            var element2 = document.getElementById("textInput");
+            var inputValue = element2.value;
+            element2.value = "";
+            for(let i = 0; i<data.length;i++){
+                if(data[i].id == inputValue){
+                    element.textContent = `ID: ${data[i].id}, Name: ${data[i].first_name}, Group: ${data[i].user_group}`;
+                }
+            }
+            
+            }
+    }
+
+    function redbuttonclicked(event){
+        var element = document.getElementById("textLabel");
+        element.style.color = "red";
+    }
+
+
+    function bluebuttonclicked(event){
+        var element = document.getElementById("textLabel");
+        element.style.color = "blue";
+        
+    }
+    
+    function greenbuttonclicked(event){
+        var element = document.getElementById("textLabel");
+        element.style.color = "green";
+        
+    }
+
+    function orangebuttonclicked(){
+        var element = document.getElementById("textLabel");
+        element.style.color = "orange";
+    }
+
+    function purplebuttonclicked(){
+        var element = document.getElementById("textLabel");
+        element.style.color = "purple";
+    }
+
+    async function retrieveData(){
+        try{
+            const response = await fetch('https://67c206bb61d8935867e52f9b.mockapi.io/users_api');
+            const data = await response.json();
+            console.log("Data", data);
+            return data;
+        }
+        catch (error) {
+            console.error('Error fetching data:', error);
+            }
+    }
+    
+</script> 
+</html> 
+
